@@ -33,10 +33,14 @@ public class ProdutoService {
     public void atualizarProdutoPorCodigo(String codigo, Produto produto) {
         Produto produtoEntity = buscarProdutoPorCodigo(codigo);
         Produto produtoAtualizado = Produto.builder()
+                .id(produtoEntity.getId())
                 .codigo(codigo)
                 .descricao(produto.getDescricao() != null ?
                             produto.getDescricao() : produtoEntity.getDescricao())
-                .id(produtoEntity.getId())
+                .quantPorPalete(produto.getQuantPorPalete() != 0 ?
+                            produto.getQuantPorPalete() : produtoEntity.getQuantPorPalete())
+                .unidadesPorCxFd(produtoEntity.getUnidadesPorCxFd())
+                .tipoUnidade(produtoEntity.getTipoUnidade())
                 .build();
 
         repository.saveAndFlush(produtoAtualizado);
