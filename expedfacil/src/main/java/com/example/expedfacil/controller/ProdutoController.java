@@ -19,13 +19,13 @@ public class ProdutoController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping
-    public ResponseEntity<Produto> buscarProdutoPorCodigo(@RequestParam String codigo) {
+    @GetMapping("/{codigo}")
+    public ResponseEntity<Produto> buscarProdutoPorCodigo(@PathVariable String codigo) {
         return ResponseEntity.ok(produtoService.buscarProdutoPorCodigo(codigo));
     }
 
-    @DeleteMapping
-    public ResponseEntity<Void> excluirProdutoPorCodigo(@RequestParam String codigo) {
+    @DeleteMapping("/{codigo}")
+    public ResponseEntity<Void> excluirProdutoPorCodigo(@PathVariable String codigo) {
         produtoService.deletarProdutoPorCodigo(codigo);
         return ResponseEntity.ok().build();
     }
