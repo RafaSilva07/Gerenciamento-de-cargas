@@ -6,6 +6,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProdutoService {
 
@@ -45,4 +47,9 @@ public class ProdutoService {
 
         repository.saveAndFlush(produtoAtualizado);
     }
+
+    public List<Produto> buscarProdutos(){
+        return repository.findAll();
+    }
+
 }

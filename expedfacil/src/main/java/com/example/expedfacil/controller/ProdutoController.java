@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/produto")
 @RequiredArgsConstructor       // Anotaçao lombok para construtor
@@ -13,29 +15,34 @@ public class ProdutoController {
 
     private final ProdutoService produtoService;
 
-    @PostMapping
-    public ResponseEntity<Void> salvarProduto(@RequestBody Produto produto) {
+    @PostMapping    // Salvar
+    public ResponseEntity<String> salvarProduto(@RequestBody Produto produto) {
         produtoService.salvarProduto(produto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body("O Produto: " + produto.getCodigo() + " , foi salvo com sucesso!");
     }
 
-    @GetMapping("/{codigo}")
+    @GetMapping    // Listar Todos os Produtos
+    public ResponseEntity<List<Produto>> buscarProdutos() {
+        List<Produto> produtos = produtoService.buscarProdutos();
+        return ResponseEntity.ok(produtos);
+    }
+
+    @GetMapping("/{codigo}")    // Buscar Produto po Codigo
     public ResponseEntity<Produto> buscarProdutoPorCodigo(@PathVariable String codigo) {
         return ResponseEntity.ok(produtoService.buscarProdutoPorCodigo(codigo));
     }
 
-    @DeleteMapping("/{codigo}")
-    public ResponseEntity<Void> excluirProdutoPorCodigo(@PathVariable String codigo) {
+    @DeleteMapping("/{codigo}")     // Deletar
+    public ResponseEntity<String> excluirProdutoPorCodigo(@PathVariable String codigo) {
         produtoService.deletarProdutoPorCodigo(codigo);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body("O produto " + codigo + " foi removido com sucesso!");
     }
 
-    @PutMapping
-    public ResponseEntity<Void> atualizarProdutoPorCodigo(@RequestParam String codigo,
+    @PutMapping         // Atualizar produto
+    public ResponseEntity<String> atualizarProdutoPorCodigo(@RequestParam String codigo,
                                                           @RequestBody Produto produto) {
         produtoService.atualizarProdutoPorCodigo(codigo, produto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body("O Produto " + codigo + " foi atualizado com sucesso!");
     }
-
 
 }
