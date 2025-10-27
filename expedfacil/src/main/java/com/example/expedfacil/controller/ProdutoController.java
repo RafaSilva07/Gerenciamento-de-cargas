@@ -3,6 +3,9 @@ package com.example.expedfacil.controller;
 import com.example.expedfacil.bussiness.ProdutoService;
 import com.example.expedfacil.infrastructure.entitys.Produto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,11 +24,18 @@ public class ProdutoController {
         return ResponseEntity.ok().body("O Produto: " + produto.getCodigo() + " , foi salvo com sucesso!");
     }
 
-    @GetMapping    // Listar Todos os Produtos
-    public ResponseEntity<List<Produto>> buscarProdutos() {
-        List<Produto> produtos = produtoService.buscarProdutos();
-        return ResponseEntity.ok(produtos);
+    @GetMapping
+    public ResponseEntity<Page<Produto>> buscarProduto(
+            @PageableDefault(size = 10, sort = "descricao") Pageable pageable) {
+        Page<Produto> page = produtoService.buscarProdutos(pageable);
+        return ResponseEntity.ok(page);
     }
+
+//    @GetMapping    // Listar Todos os Produtos
+//    public ResponseEntity<List<Produto>> buscarProdutos() {
+//        List<Produto> produtos = produtoService.buscarProdutos();
+//        return ResponseEntity.ok(produtos);
+//    }
 
     @GetMapping("/{codigo}")    // Buscar Produto po Codigo
     public ResponseEntity<Produto> buscarProdutoPorCodigo(@PathVariable String codigo) {
