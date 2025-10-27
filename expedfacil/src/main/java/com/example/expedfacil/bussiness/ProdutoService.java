@@ -3,6 +3,7 @@ package com.example.expedfacil.bussiness;
 import com.example.expedfacil.infrastructure.entitys.Produto;
 import com.example.expedfacil.infrastructure.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -50,8 +51,17 @@ public class ProdutoService {
         repository.saveAndFlush(produtoAtualizado);
     }
 
-    public Page<Produto> buscarProdutos(Pageable pageable) {
-        return repository.findAll(pageable);
+//    public Page<Produto> buscarProdutos(Pageable pageable) {
+//        return repository.findAll(pageable);
+//    }
+
+    public Page<Produto> pesquisarProdutos(String q, Pageable pageable) {
+        // Se o parâmetro 'q' (termo de busca) vier vazio, lista todos os produtos
+        if (q == null || q.isBlank()) {
+            return repository.findAll(pageable);
+        }
+        return repository.findByDescricaoContainingIgnoreCase(q.trim(), pageable);
     }
+
 
 }

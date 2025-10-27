@@ -25,17 +25,13 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Produto>> buscarProduto(
-            @PageableDefault(size = 10, sort = "descricao") Pageable pageable) {
-        Page<Produto> page = produtoService.buscarProdutos(pageable);
-        return ResponseEntity.ok(page);
+    public ResponseEntity<Page<Produto>> pesquisarProdutos(
+        @RequestParam(required = false, name = "q") String q,
+        @PageableDefault(size = 10, sort = "descricao") Pageable pageable
+        ){
+        Page<Produto> pagina = produtoService.pesquisarProdutos(q, pageable);
+        return ResponseEntity.ok(pagina);
     }
-
-//    @GetMapping    // Listar Todos os Produtos
-//    public ResponseEntity<List<Produto>> buscarProdutos() {
-//        List<Produto> produtos = produtoService.buscarProdutos();
-//        return ResponseEntity.ok(produtos);
-//    }
 
     @GetMapping("/{codigo}")    // Buscar Produto po Codigo
     public ResponseEntity<Produto> buscarProdutoPorCodigo(@PathVariable String codigo) {
