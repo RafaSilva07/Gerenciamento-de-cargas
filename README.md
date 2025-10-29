@@ -42,7 +42,7 @@ O **ExpedFacil** propõe uma solução integrada, com foco em:
 
 ## 📄 Documento de Requisitos
 
-O documento completo com os **requisitos funcionais e não funcionais**, **atores**, **casos de uso** e **regras de negócio** pode ser acessado através do link abaixo:
+O documento completo com os **requisitos funcionais e não funcionais**, **atores**, **histórias de usuário** e **requisitos de performance** pode ser acessado através do link abaixo:
 
 👉 [Clique aqui para acessar o Documento de Requisitos](https://docs.google.com/document/d/1v0EbgXwQaX2MrJ1mLVpja3hDUi6oYEETRugZS-b8iH8/edit?usp=sharing)
 
