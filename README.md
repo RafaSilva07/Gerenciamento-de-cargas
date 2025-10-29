@@ -21,7 +21,7 @@ O **ExpedFacil** propõe uma solução integrada, com foco em:
 
 ## ⚙️ Tecnologias Utilizadas
 
-- **Java 17**  
+- **Java**  
 - **Spring Boot** (Web, JPA, Validation)  
 - **MySQL / MariaDB**  
 - **Lombok**  
@@ -52,15 +52,6 @@ O documento completo com os **requisitos funcionais e não funcionais**, **atore
 
 **João Victor / Rafael Silva**   
 📦 Projeto acadêmico / em desenvolvimento
-
----
-
-## 🧩 Próximos Passos
-
-- [ ] Implementar autenticação e controle de permissões.  
-- [ ] Adicionar integração com armazenamento de imagens.  
-- [ ] Criar interface web para uso em tablets industriais.  
-- [ ] Documentar endpoints via Swagger/OpenAPI.
 
 ---
 
