@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/produto")
@@ -25,11 +26,11 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Produto>> pesquisarProdutos(
+    public ResponseEntity<Map<String, Object>> pesquisarProdutos(
         @RequestParam(required = false, name = "q") String q,
         @PageableDefault(size = 10, sort = "descricao") Pageable pageable
         ){
-        Page<Produto> pagina = produtoService.pesquisarProdutos(q, pageable);
+        Map<String, Object> pagina = produtoService.pesquisarProdutos(q, pageable);
         return ResponseEntity.ok(pagina);
     }
 

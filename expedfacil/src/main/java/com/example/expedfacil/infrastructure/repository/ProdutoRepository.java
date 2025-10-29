@@ -14,4 +14,6 @@ public interface ProdutoRepository  extends JpaRepository<Produto, Long> {
      void deleteByCodigo(String codigo);
 
      Page<Produto> findByDescricaoContainingIgnoreCase(String termo, Pageable pageable);
+
+     boolean existsByCodigo(String codigo);
 }
