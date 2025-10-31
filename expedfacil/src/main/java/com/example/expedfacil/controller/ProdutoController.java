@@ -45,8 +45,8 @@ public class ProdutoController {
         return ResponseEntity.ok().body("O produto " + codigo + " foi removido com sucesso!");
     }
 
-    @PutMapping         // Atualizar produto
-    public ResponseEntity<String> atualizarProdutoPorCodigo(@RequestParam String codigo,
+    @PutMapping("/{codigo}")       // Atualizar produto
+    public ResponseEntity<String> atualizarProdutoPorCodigo(@PathVariable String codigo,
                                                           @RequestBody Produto produto) {
         produtoService.atualizarProdutoPorCodigo(codigo, produto);
         return ResponseEntity.ok().body("O Produto " + codigo + " foi atualizado com sucesso!");
