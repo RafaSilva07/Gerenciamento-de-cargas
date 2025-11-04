@@ -48,8 +48,8 @@ O documento completo com os **requisitos funcionais e não funcionais**, **atore
 
 ---
 
-# 🚀 Instalação rápida — ExpedFacil
-# Pré-requisitos: Java 21+ e Maven
+## 🚀 Instalação rápida — ExpedFacil
+## Pré-requisitos: Java e Maven
 
 ## 1) Clonar
 git clone https://github.com/seu-usuario/ExpedFacil.git
