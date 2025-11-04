@@ -48,6 +48,32 @@ O documento completo com os **requisitos funcionais e não funcionais**, **atore
 
 ---
 
+# ===========================
+# 🚀 Instalação rápida — ExpedFacil
+# ===========================
+
+# Pré-requisitos: Java 21 e Maven
+
+# 1) Clonar
+git clone https://github.com/seu-usuario/ExpedFacil.git
+cd ExpedFacil
+
+# 2) Rodar (baixa dependências e sobe em http://localhost:8080)
+mvn clean spring-boot:run
+
+# ── Banco de Dados (apenas o essencial) ─────────────────────────────────────
+# Ajuste src/main/resources/application.properties:
+
+#  MySQL/MariaDB 
+# (1) Crie o banco:
+#     CREATE DATABASE expedfacil;
+# (2) Configure:
+# spring.datasource.url=jdbc:mysql://localhost:3306/expedfacil
+# spring.datasource.username=SEU_USUARIO
+# spring.datasource.password=SUA_SENHA
+# spring.jpa.hibernate.ddl-auto=update
+
+
 ## 👤 Autor
 
 **João Victor / Rafael Silva**   
