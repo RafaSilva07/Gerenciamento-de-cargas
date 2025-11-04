@@ -63,13 +63,13 @@ mvn clean spring-boot:run
  Ajuste src/main/resources/application.properties:
 
   MySQL/MariaDB 
- (1) Crie o banco:
-     CREATE DATABASE expedfacil;
- (2) Configure:
- spring.datasource.url=jdbc:mysql://localhost:3306/expedfacil
- spring.datasource.username=SEU_USUARIO
- spring.datasource.password=SUA_SENHA
- spring.jpa.hibernate.ddl-auto=update
+ -(1) Crie o banco:
+ - CREATE DATABASE expedfacil;
+ -(2) Configure:
+ -spring.datasource.url=jdbc:mysql://localhost:3306/expedfacil
+ -spring.datasource.username=SEU_USUARIO
+ -spring.datasource.password=SUA_SENHA
+ -spring.jpa.hibernate.ddl-auto=update
 
 
 ## 👤 Autor
