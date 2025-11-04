@@ -52,24 +52,24 @@ O documento completo com os **requisitos funcionais e não funcionais**, **atore
 ## Pré-requisitos: Java e Maven
 
 ## 1) Clonar
-git clone https://github.com/seu-usuario/ExpedFacil.git
-cd ExpedFacil
+- **git clone https://github.com/seu-usuario/ExpedFacil.git**
+- **cd ExpedFacil**
 
 ## 2) Rodar (baixa dependências e sobe em http://localhost:8080)
-mvn clean spring-boot:run
+- **mvn clean spring-boot:run**
 
-## ── Banco de Dados (MySQL/MariaDB) ───────────────────────────────
- Crie o banco (no terminal/cliente SQL):
- mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS expedfacil CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;"
+## Banco de Dados (MySQL/MariaDB)
+ - **Crie o banco (no terminal/cliente SQL):**
+ - **mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS expedfacil CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;"**
 
- Edite src/main/resources/application.properties (exemplo):
- spring.datasource.url=jdbc:mysql://localhost:3306/expedfacil?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
- spring.datasource.username=SEU_USUARIO
- spring.datasource.password=SUA_SENHA
- spring.jpa.hibernate.ddl-auto=update
+ - **Edite src/main/resources/application.properties (exemplo):**
+ - **spring.datasource.url=jdbc:mysql://localhost:3306/expedfacil?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8**
+ - **spring.datasource.username=SEU_USUARIO**
+ - **spring.datasource.password=SUA_SENHA**
+ - **spring.jpa.hibernate.ddl-auto=update**
 
 ## Após configurar o banco, rode novamente:
- mvn clean spring-boot:run
+ - **mvn clean spring-boot:run**
 
 
 ## 👤 Autor
