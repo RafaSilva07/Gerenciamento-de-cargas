@@ -1,0 +1,133 @@
+/* ===============================
+   ESTILO BASE (Tablet e Desktop)
+================================= */
+
+.produtos-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Barra de pesquisa e filtros */
+.produtos-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+/* Container que segura a barra de pesquisa e os botões */
+.filtro-pesquisa {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.input-pesquisa {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 350px;
+  font-size: 0.95rem;
+}
+
+.btn {
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.3s;
+  color: white;
+}
+
+.btn-pesquisar,
+.btn-filtrar {
+  background-color: #333;
+}
+
+.btn-pesquisar:hover,
+.btn-filtrar:hover {
+  background-color: #555;
+}
+
+.btn-add {
+  background-color: #333;
+  margin-top: 5px;
+}
+
+.btn-add:hover {
+  background-color: #555;
+}
+
+
+/* Lista de produtos */
+.produtos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Paginação */
+.paginacao {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 25px;
+}
+
+.btn-paginacao {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-paginacao:hover:not(:disabled) {
+  background-color: #555;
+}
+
+.btn-paginacao:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.paginacao-info {
+  font-size: 0.95rem;
+  color: #444;
+}
+
+
+
+
+/* ===============================
+   AJUSTES PARA TELAS PEQUENAS
+================================= */
+@media (max-width: 768px) {
+  .produtos-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .input-pesquisa,
+  .btn {
+    width: 100%;
+  }
+
+  .adicionar-container {
+    justify-content: stretch;
+  }
+
+  .btn-add {
+    width: 100%;
+  }
+}
