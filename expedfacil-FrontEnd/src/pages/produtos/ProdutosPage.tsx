@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import AppLayout from "../../components/layout/AppLayout";
-import { getProdutos } from "../../services/produtoService";
-import { pesquisarProdutos } from "../../services/produtoService";
-import { buscarProdutoPorCodigo } from "../../services/produtoService";
-
+import {
+  getProdutos,
+  salvarProduto,
+  deletarProduto,
+  atualizarProduto,
+  buscarProdutoPorCodigo,
+  pesquisarProdutos,
+} from "../../services/produtoService";
 import CardProduto from "./components/CardProduto";
+import type { ProdutoFormData } from "./components/ModalProdutoForm";
+import ModalProdutoForm from "./components/ModalProdutoForm";
 import "./ProdutosPage.css";
 
 interface Produto {
@@ -18,73 +24,122 @@ interface Produto {
 const ProdutosPage: React.FC = () => {
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [carregando, setCarregando] = useState(true);
-  const [pagina, setPagina] = useState(0);
-  const [totalPaginas, setTotalPaginas] = useState(0);
+  const [mostrarModal, setMostrarModal] = useState(false);
+  const [modoEdicao, setModoEdicao] = useState(false);
+  const [produtoEditando, setProdutoEditando] = useState<Produto | null>(null);
   const [termoBusca, setTermoBusca] = useState("");
 
 
-  useEffect(() => {
-    async function carregarProdutos() {
-      setCarregando(true);
-      try {
-        const { produtos, totalPaginas } = await getProdutos(pagina);
-        setProdutos(produtos);
-        setTotalPaginas(totalPaginas);
-      } catch (erro) {
-        console.error("Erro ao carregar produtos:", erro);
-      } finally {
-        setCarregando(false);
-      }
-    }
-    carregarProdutos();
-  }, [pagina]); // ⬅️ sempre que a página mudar, recarrega
-
-
   const handlePesquisar = async () => {
-  const termo = termoBusca.trim();
+  try {
+    setCarregando(true);
 
-  if (termo === "") {
-    // campo vazio → recarrega todos
+    if (termoBusca.trim() === "") {
+  const produtosData = await getProdutos(0);
+  setProdutos(produtosData.produtos); // usa apenas o array
+  return;
+}
+
+
+    // Se for número, busca por código
+    if (!isNaN(Number(termoBusca))) {
+      const produtosPorCodigo = await buscarProdutoPorCodigo(termoBusca);
+      setProdutos(produtosPorCodigo);
+    } else {
+      // Senão, busca por nome
+      const produtosPorNome = await pesquisarProdutos(termoBusca);
+      setProdutos(produtosPorNome);
+    }
+  } catch (erro) {
+    console.error("Erro ao pesquisar produto:", erro);
+    alert("Erro ao pesquisar produto. Tente novamente.");
+  } finally {
+    setCarregando(false);
+  }
+};
+
+
+  const carregarProdutos = useCallback(async () => {
+  try {
     const { produtos } = await getProdutos(0);
     setProdutos(produtos);
-    return;
+  } catch (erro) {
+    console.error("Erro ao carregar produtos:", erro);
+  } finally {
+    setCarregando(false);
   }
+}, []);
 
+useEffect(() => {
+  carregarProdutos();
+}, [carregarProdutos]);
+
+
+  const handleAbrirModalNovo = () => {
+  setProdutoEditando(null);
+  setModoEdicao(false);
+  setMostrarModal(true);
+};
+
+
+  const fecharModal = () => {
+    setMostrarModal(false);
+    setProdutoEditando(null);
+    setModoEdicao(false);
+  };
+
+  const handleSalvarProduto = async (dadosProduto: ProdutoFormData): Promise<void> => {
   try {
-      setCarregando(true);
+    if (modoEdicao && produtoEditando) {
+      await atualizarProduto(produtoEditando.codigo, {
+        descricao: dadosProduto.descricao,
+        quantPorPalete: dadosProduto.quantPorPalete,
+      });
+      alert("Produto atualizado com sucesso!");
+    } else {
+      await salvarProduto(dadosProduto);
+      alert("Produto cadastrado com sucesso!");
+    }
 
-      let produtosFiltrados: Produto[] = [];
+    fecharModal();
+    carregarProdutos();
+  } catch (erro) {
+    console.error("Erro ao salvar produto:", erro);
+    alert("Erro ao salvar produto. Verifique os dados e tente novamente.");
+  }
+};
 
-      // 🔢 Se o termo for numérico → busca por código
-      if (!isNaN(Number(termo))) {
-        produtosFiltrados = await buscarProdutoPorCodigo(termo);
+  const handleExcluirProduto = async (codigo: string, descricao: string) => {
+    const confirmar = window.confirm(
+      `Tem certeza que deseja excluir o produto "${descricao}" (código: ${codigo})?`
+    );
+    if (!confirmar) return;
+
+    try {
+      await deletarProduto(codigo);
+      alert(`Produto "${descricao}" excluído com sucesso!`);
+      carregarProdutos();
+    } catch (erro: unknown) {
+      if (erro instanceof Error) {
+        console.error("Erro ao excluir produto:", erro.message);
       } else {
-        // 🔤 Senão, busca por palavra
-        produtosFiltrados = await pesquisarProdutos(termo);
+        console.error("Erro inesperado ao excluir produto:", erro);
       }
-
-      setProdutos(produtosFiltrados);
-    } catch (erro) {
-      console.error("Erro ao pesquisar produtos:", erro);
-    } finally {
-      setCarregando(false);
+      alert("Erro ao excluir produto. Tente novamente.");
     }
   };
 
-
-
-  // 🔹 Funções para navegação
-  const paginaAnterior = () => {
-    if (pagina > 0) setPagina(pagina - 1);
-  };
-
-  const proximaPagina = () => {
-    if (pagina < totalPaginas - 1) setPagina(pagina + 1);
+  const handleEditarProduto = (produto: Produto) => {
+    setProdutoEditando(produto);
+    setModoEdicao(true);
+    setMostrarModal(true);
   };
 
   return (
-    <AppLayout title="Gerenciar Produtos">
+  <AppLayout title="Gerenciar Produtos">
       <div className="produtos-container">
+        
+        {/* Cabeçalho da página com campo de pesquisa e botões */}
         <div className="produtos-header">
           <div className="filtro-pesquisa">
             <input
@@ -93,18 +148,20 @@ const ProdutosPage: React.FC = () => {
               className="input-pesquisa"
               value={termoBusca}
               onChange={(e) => setTermoBusca(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handlePesquisar()}
             />
             <button className="btn btn-pesquisar" onClick={handlePesquisar}>
               Pesquisar
             </button>
-            {/* <button className="btn btn-filtrar">Filtrar</button> */}
           </div>
-
-
-          <button className="btn btn-add">+ Adicionar Novo Produto</button>
+          <div className="add-produto-container">
+            <button className="btn btn-add" onClick={handleAbrirModalNovo}>
+              + Novo Produto
+            </button>
+          </div>
         </div>
 
-
+        {/* Lista de produtos */}
         <div className="produtos-lista">
           {carregando ? (
             <p>Carregando produtos...</p>
@@ -117,8 +174,10 @@ const ProdutosPage: React.FC = () => {
                 quantPorPalete={produto.quantPorPalete}
                 unidadesPorCxFd={produto.unidadesPorCxFd}
                 tipoUnidade={produto.tipoUnidade}
-                onEditar={() => console.log("Editar:", produto.codigo)}
-                onExcluir={() => console.log("Excluir:", produto.codigo)}
+                onEditar={() => handleEditarProduto(produto)}
+                onExcluir={() =>
+                  handleExcluirProduto(produto.codigo, produto.descricao)
+                }
               />
             ))
           ) : (
@@ -126,28 +185,16 @@ const ProdutosPage: React.FC = () => {
           )}
         </div>
 
-        {/* 🔹 Controle de Paginação */}
-        <div className="paginacao">
-          <button
-            onClick={paginaAnterior}
-            disabled={pagina === 0}
-            className="btn-paginacao"
-          >
-            ← Anterior
-          </button>
+        {/* Modal de formulário (para adicionar/editar) */}
+        {mostrarModal && (
+          <ModalProdutoForm
+            onClose={fecharModal}
+            onSalvar={handleSalvarProduto}
+            modoEdicao={modoEdicao}
+            produto={produtoEditando} 
+          />
+      )}
 
-          <span className="paginacao-info">
-            Página {pagina + 1} de {totalPaginas}
-          </span>
-
-          <button
-            onClick={proximaPagina}
-            disabled={pagina === totalPaginas - 1}
-            className="btn-paginacao"
-          >
-            Próxima →
-          </button>
-        </div>
       </div>
     </AppLayout>
   );

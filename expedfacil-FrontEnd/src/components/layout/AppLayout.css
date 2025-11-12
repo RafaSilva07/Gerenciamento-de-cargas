@@ -38,6 +38,10 @@
   text-align: center;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 
 /* Responsividade: mantém proporção sem esmagar */
 @media (max-width: 768px) {
@@ -57,3 +61,5 @@
     margin-bottom: 25px;
   }
 }
+
+

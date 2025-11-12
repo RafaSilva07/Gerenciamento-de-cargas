@@ -1,3 +1,4 @@
+import type { ProdutoFormData } from "../pages/produtos/components/ModalProdutoForm";
 import axios from "axios";
 
 const api = axios.create({
@@ -73,4 +74,34 @@ export async function buscarProdutoPorCodigo(codigo: string) {
   }
 }
 
+// Cadastra novo produto
+export async function salvarProduto(produto: ProdutoFormData) {
+  try {
+    const response = await api.post("/produto", produto);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao salvar produto:", error);
+    throw error;
+  }
+}
 
+// Excluir produto pelo código
+export async function deletarProduto(codigo: string) {
+  try {
+    await api.delete(`/produto/${codigo}`);
+  } catch (error) {
+    console.error("Erro ao excluir produto:", error);
+    throw error;
+  }
+}
+
+// Atualiza produto existente
+export async function atualizarProduto(codigo: string, produto: { descricao: string; quantPorPalete: number }) {
+  try {
+    const response = await api.put(`/produto/${codigo}`, produto);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao atualizar produto:", error);
+    throw error;
+  }
+}

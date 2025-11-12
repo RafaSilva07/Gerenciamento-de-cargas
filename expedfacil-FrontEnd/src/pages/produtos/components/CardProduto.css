@@ -2,11 +2,11 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  background-color: #fafafa;
+  background-color: #FFF6F6;
   border: 1px solid #eee;
   border-radius: 12px;
   padding: 16px 20px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 .produto-info h3 {
