@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import AppLayout from "../../components/layout/AppLayout";
 import { getProdutos } from "../../services/produtoService";
+import { pesquisarProdutos } from "../../services/produtoService";
+import { buscarProdutoPorCodigo } from "../../services/produtoService";
+
 import CardProduto from "./components/CardProduto";
 import "./ProdutosPage.css";
 
@@ -17,6 +20,8 @@ const ProdutosPage: React.FC = () => {
   const [carregando, setCarregando] = useState(true);
   const [pagina, setPagina] = useState(0);
   const [totalPaginas, setTotalPaginas] = useState(0);
+  const [termoBusca, setTermoBusca] = useState("");
+
 
   useEffect(() => {
     async function carregarProdutos() {
@@ -34,6 +39,40 @@ const ProdutosPage: React.FC = () => {
     carregarProdutos();
   }, [pagina]); // ⬅️ sempre que a página mudar, recarrega
 
+
+  const handlePesquisar = async () => {
+  const termo = termoBusca.trim();
+
+  if (termo === "") {
+    // campo vazio → recarrega todos
+    const { produtos } = await getProdutos(0);
+    setProdutos(produtos);
+    return;
+  }
+
+  try {
+      setCarregando(true);
+
+      let produtosFiltrados: Produto[] = [];
+
+      // 🔢 Se o termo for numérico → busca por código
+      if (!isNaN(Number(termo))) {
+        produtosFiltrados = await buscarProdutoPorCodigo(termo);
+      } else {
+        // 🔤 Senão, busca por palavra
+        produtosFiltrados = await pesquisarProdutos(termo);
+      }
+
+      setProdutos(produtosFiltrados);
+    } catch (erro) {
+      console.error("Erro ao pesquisar produtos:", erro);
+    } finally {
+      setCarregando(false);
+    }
+  };
+
+
+
   // 🔹 Funções para navegação
   const paginaAnterior = () => {
     if (pagina > 0) setPagina(pagina - 1);
@@ -50,12 +89,17 @@ const ProdutosPage: React.FC = () => {
           <div className="filtro-pesquisa">
             <input
               type="text"
-              placeholder="Pesquise Nome ou Código do Produto"
+              placeholder="Pesquise Nome ou Código"
               className="input-pesquisa"
+              value={termoBusca}
+              onChange={(e) => setTermoBusca(e.target.value)}
             />
-            <button className="btn btn-pesquisar">Pesquisar</button>
-            <button className="btn btn-filtrar">Filtrar</button>
+            <button className="btn btn-pesquisar" onClick={handlePesquisar}>
+              Pesquisar
+            </button>
+            {/* <button className="btn btn-filtrar">Filtrar</button> */}
           </div>
+
 
           <button className="btn btn-add">+ Adicionar Novo Produto</button>
         </div>
