@@ -29,58 +29,79 @@ const ProdutosPage: React.FC = () => {
   const [produtoEditando, setProdutoEditando] = useState<Produto | null>(null);
   const [termoBusca, setTermoBusca] = useState("");
 
+  // estados de paginação
+  const [paginaAtual, setPaginaAtual] = useState(0);
+  const [totalPaginas, setTotalPaginas] = useState(1);
 
+  // ------------------------------
+  // PESQUISA
+  // ------------------------------
   const handlePesquisar = async () => {
-  try {
-    setCarregando(true);
+    try {
+      setCarregando(true);
 
-    if (termoBusca.trim() === "") {
-  const produtosData = await getProdutos(0);
-  setProdutos(produtosData.produtos); // usa apenas o array
-  return;
-}
+      if (termoBusca.trim() === "") {
+        const produtosData = await getProdutos(paginaAtual);
+        setProdutos(produtosData.produtos);
+        setTotalPaginas(produtosData.totalPaginas);
+        setPaginaAtual(produtosData.paginaAtual);
+        return;
+      }
 
-
-    // Se for número, busca por código
-    if (!isNaN(Number(termoBusca))) {
-      const produtosPorCodigo = await buscarProdutoPorCodigo(termoBusca);
-      setProdutos(produtosPorCodigo);
-    } else {
-      // Senão, busca por nome
-      const produtosPorNome = await pesquisarProdutos(termoBusca);
-      setProdutos(produtosPorNome);
+      // Se for número, busca por código
+      if (!isNaN(Number(termoBusca))) {
+        const produtosPorCodigo = await buscarProdutoPorCodigo(termoBusca);
+        setProdutos(produtosPorCodigo);
+      } else {
+        // Senão, busca por nome
+        const produtosPorNome = await pesquisarProdutos(termoBusca);
+        setProdutos(produtosPorNome);
+      }
+    } catch (erro) {
+      console.error("Erro ao pesquisar produto:", erro);
+      alert("Erro ao pesquisar produto. Tente novamente.");
+    } finally {
+      setCarregando(false);
     }
-  } catch (erro) {
-    console.error("Erro ao pesquisar produto:", erro);
-    alert("Erro ao pesquisar produto. Tente novamente.");
-  } finally {
-    setCarregando(false);
-  }
-};
+  };
 
+  // ------------------------------
+  // CARREGAR PRODUTOS
+  // ------------------------------
+  const carregarProdutos = useCallback(async (pagina = 0) => {
+    try {
+      setCarregando(true);
+      const data = await getProdutos(pagina);
+      setProdutos(data.produtos);
+      setPaginaAtual(data.paginaAtual);
+      setTotalPaginas(data.totalPaginas);
+    } catch (erro) {
+      console.error("Erro ao carregar produtos:", erro);
+    } finally {
+      setCarregando(false);
+    }
+  }, []);
 
-  const carregarProdutos = useCallback(async () => {
-  try {
-    const { produtos } = await getProdutos(0);
-    setProdutos(produtos);
-  } catch (erro) {
-    console.error("Erro ao carregar produtos:", erro);
-  } finally {
-    setCarregando(false);
-  }
-}, []);
+  useEffect(() => {
+    carregarProdutos();
+  }, [carregarProdutos]);
 
-useEffect(() => {
-  carregarProdutos();
-}, [carregarProdutos]);
+  // ------------------------------
+  // PAGINAÇÃO
+  // ------------------------------
+  const handlePaginaChange = (novaPagina: number) => {
+    if (novaPagina < 0 || novaPagina >= totalPaginas) return;
+    carregarProdutos(novaPagina);
+  };
 
-
+  // ------------------------------
+  // MODAL
+  // ------------------------------
   const handleAbrirModalNovo = () => {
-  setProdutoEditando(null);
-  setModoEdicao(false);
-  setMostrarModal(true);
-};
-
+    setProdutoEditando(null);
+    setModoEdicao(false);
+    setMostrarModal(true);
+  };
 
   const fecharModal = () => {
     setMostrarModal(false);
@@ -88,26 +109,31 @@ useEffect(() => {
     setModoEdicao(false);
   };
 
-  const handleSalvarProduto = async (dadosProduto: ProdutoFormData): Promise<void> => {
-  try {
-    if (modoEdicao && produtoEditando) {
-      await atualizarProduto(produtoEditando.codigo, {
-        descricao: dadosProduto.descricao,
-        quantPorPalete: dadosProduto.quantPorPalete,
-      });
-      alert("Produto atualizado com sucesso!");
-    } else {
-      await salvarProduto(dadosProduto);
-      alert("Produto cadastrado com sucesso!");
-    }
+  // ------------------------------
+  // CRUD
+  // ------------------------------
+  const handleSalvarProduto = async (
+    dadosProduto: ProdutoFormData
+  ): Promise<void> => {
+    try {
+      if (modoEdicao && produtoEditando) {
+        await atualizarProduto(produtoEditando.codigo, {
+          descricao: dadosProduto.descricao,
+          quantPorPalete: dadosProduto.quantPorPalete,
+        });
+        alert("Produto atualizado com sucesso!");
+      } else {
+        await salvarProduto(dadosProduto);
+        alert("Produto cadastrado com sucesso!");
+      }
 
-    fecharModal();
-    carregarProdutos();
-  } catch (erro) {
-    console.error("Erro ao salvar produto:", erro);
-    alert("Erro ao salvar produto. Verifique os dados e tente novamente.");
-  }
-};
+      fecharModal();
+      carregarProdutos(paginaAtual);
+    } catch (erro) {
+      console.error("Erro ao salvar produto:", erro);
+      alert("Erro ao salvar produto. Verifique os dados e tente novamente.");
+    }
+  };
 
   const handleExcluirProduto = async (codigo: string, descricao: string) => {
     const confirmar = window.confirm(
@@ -118,7 +144,7 @@ useEffect(() => {
     try {
       await deletarProduto(codigo);
       alert(`Produto "${descricao}" excluído com sucesso!`);
-      carregarProdutos();
+      carregarProdutos(paginaAtual);
     } catch (erro: unknown) {
       if (erro instanceof Error) {
         console.error("Erro ao excluir produto:", erro.message);
@@ -135,10 +161,12 @@ useEffect(() => {
     setMostrarModal(true);
   };
 
+  // ------------------------------
+  // RENDER
+  // ------------------------------
   return (
-  <AppLayout title="Gerenciar Produtos">
+    <AppLayout title="Gerenciar Produtos">
       <div className="produtos-container">
-        
         {/* Cabeçalho da página com campo de pesquisa e botões */}
         <div className="produtos-header">
           <div className="filtro-pesquisa">
@@ -185,16 +213,40 @@ useEffect(() => {
           )}
         </div>
 
+        {/* Paginação */}
+        {produtos.length > 0 && (
+          <div className="paginacao-container">
+            <button
+              className="btn btn-paginacao"
+              onClick={() => handlePaginaChange(paginaAtual - 1)}
+              disabled={paginaAtual === 0}
+            >
+              Anterior
+            </button>
+
+            <span className="pagina-info">
+              Página {paginaAtual + 1} de {totalPaginas}
+            </span>
+
+            <button
+              className="btn btn-paginacao"
+              onClick={() => handlePaginaChange(paginaAtual + 1)}
+              disabled={paginaAtual + 1 >= totalPaginas}
+            >
+              Próxima
+            </button>
+          </div>
+        )}
+
         {/* Modal de formulário (para adicionar/editar) */}
         {mostrarModal && (
           <ModalProdutoForm
             onClose={fecharModal}
             onSalvar={handleSalvarProduto}
             modoEdicao={modoEdicao}
-            produto={produtoEditando} 
+            produto={produtoEditando}
           />
-      )}
-
+        )}
       </div>
     </AppLayout>
   );

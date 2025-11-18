@@ -64,7 +64,6 @@
   background-color: #555;
 }
 
-
 /* Lista de produtos */
 .produtos-lista {
   display: flex;
@@ -72,8 +71,11 @@
   gap: 15px;
 }
 
-/* Paginação */
-.paginacao {
+/* ===============================
+   PAGINAÇÃO
+================================= */
+
+.paginacao-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -101,16 +103,13 @@
   cursor: not-allowed;
 }
 
-.paginacao-info {
+.pagina-info {
   font-size: 0.95rem;
   color: #444;
 }
 
-
-
-
 /* ===============================
-   AJUSTES PARA TELAS PEQUENAS
+    AJUSTES PARA TELAS PEQUENAS
 ================================= */
 @media (max-width: 768px) {
   .produtos-header {
@@ -129,5 +128,10 @@
 
   .btn-add {
     width: 100%;
+  }
+
+  .paginacao-container {
+    flex-direction: column;
+    gap: 10px;
   }
 }
