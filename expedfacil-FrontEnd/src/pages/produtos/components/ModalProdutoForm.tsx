@@ -86,7 +86,7 @@ const ModalProdutoForm: React.FC<ModalProdutoFormProps> = ({
         <form onSubmit={handleSubmit} className="form-produto">
           {/* Código */}
           <div className="form-group">
-            <label>Código</label>
+            <label>Código(000000.00)</label>
             <input
               type="text"
               name="codigo"
