@@ -1,15 +1,121 @@
+/* Wrapper que permite posicionar o botão dentro da área branca */
+.conteudo-romaneio {
+  position: relative;
+}
+
 .romaneios-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  padding: 20px;
+  gap: 25px;
+  margin-top: 40px;
 }
 
+/* Título */
 .titulo-romaneios {
-  font-size: 1.8rem;
-  font-weight: 600;
   text-align: center;
+  font-size: 1.6rem;
   color: #333;
+  margin-bottom: 5px;
+}
+
+/* Botão voltar - agora preso ao conteudo-romaneio */
+.botao-voltar-topo {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+}
+
+.btn-voltar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.btn-voltar:hover {
+  color: black;
+}
+
+/* Busca */
+.romaneio-busca {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.input-busca {
+  width: 320px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.btn-pesquisar {
+  background-color: #333;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+}
+
+.btn-pesquisar:hover {
+  background-color: #555;
+}
+
+/* Novo Romaneio */
+.add-container {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-add {
+  background-color: #333;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+}
+
+.btn-add:hover {
+  background-color: #555;
+}
+
+/* Lista e cards */
+.lista-romaneios {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Paginação */
+.paginacao {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 25px;
+}
+
+.btn-paginacao {
+  background-color: #333;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+}
+
+.btn-paginacao:hover:not(:disabled) {
+  background-color: #555;
+}
+
+.btn-paginacao:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+.paginacao-info {
+  font-size: 0.95rem;
+  color: #444;
 }
