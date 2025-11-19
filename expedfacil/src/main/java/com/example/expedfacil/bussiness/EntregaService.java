@@ -46,6 +46,11 @@ public class EntregaService {
             List<ProdutoEntrega> produtos = entrega.getProdutos();
             produtoEntregaService.prepararProdutosDaEntrega(produtos);
 
+            // vinculando cada produto à entrega
+            for (ProdutoEntrega produto : produtos) {
+                produto.setEntrega(entrega);
+            }
+
             // Calcular total de caixas (soma das quantidades)
             int totalCaixas = produtos.stream()
                     .mapToInt(ProdutoEntrega::getQuantidade)

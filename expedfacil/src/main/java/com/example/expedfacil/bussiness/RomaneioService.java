@@ -3,6 +3,8 @@ package com.example.expedfacil.bussiness;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.example.expedfacil.infrastructure.entitys.Entrega;
+import com.example.expedfacil.infrastructure.projection.RomaneioResumoProjection;
 import org.springframework.stereotype.Service;
 
 import com.example.expedfacil.bussiness.exception.ConflitoException;
@@ -28,6 +30,10 @@ public class RomaneioService {
         // Prepara cada entrega antes de salvar
         entregaService.prepararEntregas(romaneio.getEntregas());
 
+        for (Entrega entrega : romaneio.getEntregas()) {
+            entrega.setRomaneio(romaneio);
+        }
+
         // Salva o romaneio com entregas e produtos (cascade)
         return romaneioRepository.save(romaneio);
     }
@@ -35,6 +41,10 @@ public class RomaneioService {
 
     public List<Romaneio> listarSimples() {
         return romaneioRepository.findAll();
+    }
+
+    public List<RomaneioResumoProjection> listarResumo() {
+        return romaneioRepository.listarResumo();
     }
 
     public Romaneio buscarPorId(Long id) {
@@ -62,4 +72,26 @@ public class RomaneioService {
             throw new ConflitoException("O número de embarque já está cadastrado: " + numeroEmbarque);
         }
     }
+
+    public Romaneio buscarPorNumero(String numeroEmbarque) {
+        return romaneioRepository.findByNumeroEmbarque(numeroEmbarque)
+                .orElseThrow(() -> new RecursoNaoEncontradoException(
+                        "Não existe romaneio com número de embarque " + numeroEmbarque
+                ));
+    }
+
+    public void editarObservacaoPorNumero(String numeroEmbarque, String novaObs) {
+        Romaneio romaneio = buscarPorNumero(numeroEmbarque);
+        romaneio.setObservacaoEmbarque(novaObs);
+        romaneioRepository.save(romaneio);
+    }
+
+    public void deletarPorNumero(String numeroEmbarque) {
+        Romaneio romaneio = buscarPorNumero(numeroEmbarque);
+        romaneioRepository.delete(romaneio);
+    }
+
+
+
+
 }

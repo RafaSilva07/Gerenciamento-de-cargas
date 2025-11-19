@@ -1,5 +1,6 @@
 package com.example.expedfacil.infrastructure.entitys;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -41,5 +42,6 @@ public class ProdutoEntrega {
     // Relacionamento com a entrega
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "entrega_id", nullable = false)
+    @JsonBackReference
     private Entrega entrega;
 }

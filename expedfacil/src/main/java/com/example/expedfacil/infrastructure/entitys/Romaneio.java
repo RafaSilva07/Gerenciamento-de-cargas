@@ -2,6 +2,8 @@ package com.example.expedfacil.infrastructure.entitys;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -48,5 +50,6 @@ public class Romaneio {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @JsonManagedReference
     private List<Entrega> entregas;
 }
