@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.example.expedfacil.infrastructure.entitys.Entrega;
 import com.example.expedfacil.infrastructure.projection.RomaneioResumoProjection;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.expedfacil.bussiness.exception.ConflitoException;
@@ -43,8 +45,8 @@ public class RomaneioService {
         return romaneioRepository.findAll();
     }
 
-    public List<RomaneioResumoProjection> listarResumo() {
-        return romaneioRepository.listarResumo();
+    public Page<RomaneioResumoProjection> listarResumo(Pageable pageable) {
+        return romaneioRepository.listarResumo(pageable);
     }
 
     public Romaneio buscarPorId(Long id) {
