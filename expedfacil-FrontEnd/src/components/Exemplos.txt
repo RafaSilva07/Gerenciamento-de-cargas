@@ -1,4 +1,0 @@
-Componentes que se repetem muitas vezes em varias paginas.
-Exemplo:
-NAVBAR
-FOOTER

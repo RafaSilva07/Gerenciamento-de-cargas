@@ -1,0 +1,53 @@
+/* ===============================
+   ESTILO GERAL DO MENU PRINCIPAL
+================================= */
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  padding: 40px 20px;
+}
+
+/* Cada card do menu principal */
+.home-card {
+  width: 100%;
+  max-width: 500px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 25px 30px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: center;
+}
+
+/* Efeito hover (padrão dos botões escuros) */
+.home-card:hover {
+  background-color: #f5f5f5;
+  border-color: #333;
+  transform: translateY(-3px);
+}
+
+/* Título do card */
+.home-card h2 {
+  font-size: 1.3rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Descrição curta abaixo do título */
+.home-card p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .home-card {
+    width: 90%;
+  }
+}
