@@ -1,0 +1,22 @@
+.produto-entrega-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: #FFF6F6;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  font-size: 0.95rem;
+}
+
+.produto-entrega-row span {
+  color: #444;
+}
+
+@media (min-width: 700px) {
+  .produto-entrega-row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

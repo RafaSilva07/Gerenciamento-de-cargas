@@ -4,6 +4,7 @@ import HomePage from "./pages/home/HomePage";
 import ProdutosPage from "./pages/produtos/ProdutosPage";
 import RomaneiosPage from "./pages/romaneios/RomaneiosPage";
 import "./App.css";
+import VisualizarRomaneioPage from "./pages/romaneios/visualizarromaneio/VisualizarRomaneioPage";
 
 const App: React.FC = () => {
   return (
@@ -19,7 +20,9 @@ const App: React.FC = () => {
         <Route path="/romaneios" element={<RomaneiosPage />} />
 
         {/* Página de detalhes do romaneio (iremos criar depois) */}
-        {/* <Route path="/romaneios/:id" element={<RomaneioDetalhes />} /> */}
+        <Route path="/romaneios/:numeroEmbarque" element={<VisualizarRomaneioPage />}
+/>
+
       </Routes>
     </Router>
   );
