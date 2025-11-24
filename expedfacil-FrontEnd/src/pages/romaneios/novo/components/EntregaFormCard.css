@@ -1,0 +1,160 @@
+/* CARD PRINCIPAL DA ENTREGA */
+.entrega-form-card {
+  background-color: #fff6f6;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* CABEÇALHO DO CARD (Título + Botão Remover) */
+.entrega-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.entrega-card-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+/* BOTÃO REMOVER ENTREGA */
+.btn-remover-entrega {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: transparent;
+  border: none;
+  color: #cc2b2b;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.btn-remover-entrega:hover {
+  color: red;
+}
+
+/* INPUTS E CAMPOS DA ENTREGA */
+.form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.form-row label {
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #444;
+}
+
+.form-row input,
+.form-row textarea {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background-color: #fff;
+}
+
+/* ÁREA DE PRODUTOS */
+.produtos-area {
+  margin-top: 20px;
+}
+
+.produtos-area h4 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* LINHA DE PRODUTO (CÓDIGO / QTDE / PESO / LIXEIRA) */
+.produto-form-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* INPUTS DA LINHA DE PRODUTOS */
+.input-produto {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  width: 180px;
+}
+
+/* BOTÃO APAGAR PRODUTO */
+.btn-apagar-produto {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #d23b3b;
+}
+
+.btn-apagar-produto:hover {
+  color: red;
+}
+
+/* BOTÃO ADICIONAR PRODUTO */
+.btn-adicionar-produto {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #333;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  margin-top: 10px;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s;
+}
+
+.btn-adicionar-produto:hover {
+  background-color: #555;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+  .produto-form-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .input-produto {
+    width: 100%;
+  }
+
+  .btn-apagar-produto {
+    align-self: flex-end;
+  }
+}
+
+/* Cabeçalho das colunas dos produtos */
+.produto-header-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 60px; /* 3 colunas + coluna da lixeira */
+  padding: 6px 0;
+  margin-bottom: 5px;
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 600;
+}
+
+/* Para alinhar inputs com o cabeçalho */
+.produto-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 60px;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.produto-form-row input {
+  width: 100%;
+}
