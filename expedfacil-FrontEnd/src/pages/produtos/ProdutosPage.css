@@ -8,6 +8,31 @@
   gap: 25px;
 }
 
+/* Container geral do topo (seta + pesquisa) */
+.topo-retorno {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: -10px; /* aproxima da barra de pesquisa */
+}
+
+.btn-voltar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: transparent;
+  color: #333;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.btn-voltar:hover {
+  color: #000;
+}
+
 /* Barra de pesquisa e filtros */
 .produtos-header {
   display: flex;
@@ -45,13 +70,11 @@
   color: white;
 }
 
-.btn-pesquisar,
-.btn-filtrar {
+.btn-pesquisar {
   background-color: #333;
 }
 
-.btn-pesquisar:hover,
-.btn-filtrar:hover {
+.btn-pesquisar:hover {
   background-color: #555;
 }
 
@@ -120,10 +143,6 @@
   .input-pesquisa,
   .btn {
     width: 100%;
-  }
-
-  .adicionar-container {
-    justify-content: stretch;
   }
 
   .btn-add {

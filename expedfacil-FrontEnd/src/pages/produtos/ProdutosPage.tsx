@@ -9,9 +9,11 @@ import {
   pesquisarProdutos,
 } from "../../services/produtoService";
 import CardProduto from "./components/CardProduto";
-import type { ProdutoFormData } from "./components/ModalProdutoForm";
-import ModalProdutoForm from "./components/ModalProdutoForm";
+import type { ProdutoFormData } from "../produtos/components/ModalProdutoForm";
+import ModalProdutoForm from "../produtos/components/ModalProdutoForm";
 import "./ProdutosPage.css";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 interface Produto {
   codigo: string;
@@ -32,6 +34,7 @@ const ProdutosPage: React.FC = () => {
   // estados de paginação
   const [paginaAtual, setPaginaAtual] = useState(0);
   const [totalPaginas, setTotalPaginas] = useState(1);
+  const navigate = useNavigate();
 
   // ------------------------------
   // PESQUISA
@@ -166,6 +169,12 @@ const ProdutosPage: React.FC = () => {
   // ------------------------------
   return (
     <AppLayout title="Gerenciar Produtos">
+      <div className="topo-retorno">
+        <button className="btn-voltar" onClick={() => navigate("/")}>
+          <ArrowLeft size={30} />
+          Voltar
+        </button>
+      </div>
       <div className="produtos-container">
         {/* Cabeçalho da página com campo de pesquisa e botões */}
         <div className="produtos-header">

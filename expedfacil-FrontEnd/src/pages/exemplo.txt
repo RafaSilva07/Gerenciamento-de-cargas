@@ -1,1 +1,0 @@
-Aqui dentro de pages ficaria uma pasta para cada pagina , para conter seus elementos próprios.
