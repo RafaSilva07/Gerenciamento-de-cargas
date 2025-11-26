@@ -1,0 +1,62 @@
+.card-romaneio {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #FFF6F6;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.card-romaneio-info h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.card-romaneio-info p {
+  margin: 4px 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.card-romaneio-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Botão abrir */
+.btn-abrir {
+  background-color: #3d3d3d;
+  color: white;
+}
+
+.btn-abrir:hover {
+  background-color: #5a5a5a;
+}
+
+/* Botão excluir */
+.btn-excluir {
+  background-color: #e64a4a;
+  color: white;
+}
+
+.btn-excluir:hover {
+  background-color: #cc3c3c;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .card-romaneio {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .card-romaneio-actions {
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+}

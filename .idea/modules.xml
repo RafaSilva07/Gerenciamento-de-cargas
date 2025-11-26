@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/expedfacil.iml" filepath="$PROJECT_DIR$/.idea/expedfacil.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Gerenciamento-de-cargas.iml" filepath="$PROJECT_DIR$/.idea/Gerenciamento-de-cargas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/expedfacil/expedfacil.iml" filepath="$PROJECT_DIR$/expedfacil/expedfacil.iml" />
     </modules>
   </component>
 </project>

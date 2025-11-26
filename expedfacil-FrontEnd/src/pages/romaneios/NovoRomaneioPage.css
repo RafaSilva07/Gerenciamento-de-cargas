@@ -1,0 +1,274 @@
+/* ===============================
+   CONTAINER PRINCIPAL
+================================= */
+
+.novo-romaneio-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-top: 40px;
+}
+
+/* Título */
+.titulo-novo-romaneio {
+  text-align: center;
+  font-size: 1.6rem;
+  color: #333;
+  margin-bottom: -10px;
+}
+
+/* ===============================
+   BOTÃO VOLTAR
+================================= */
+
+.novo-romaneio-voltar {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: -10px;
+}
+
+.btn-voltar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  transition: color 0.2s;
+}
+
+.btn-voltar:hover {
+  color: black;
+}
+
+/* ===============================
+   SEÇÃO DE DADOS DO ROMANEIO
+================================= */
+
+.secao-romaneio,
+.secao-entregas {
+  background-color: #FFF6F6;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+}
+
+.secao-romaneio h3,
+.secao-entregas h3 {
+  margin-top: 0;
+  font-size: 1.25rem;
+  color: #333;
+}
+
+/* Campos de formulário */
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.form-row label {
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.form-row input,
+.form-row textarea,
+.form-row select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  background-color: #fff;
+}
+
+.form-row textarea {
+  resize: none;
+}
+
+/* ===============================
+   BOTÃO ADICIONAR ENTREGA
+================================= */
+
+.secao-entregas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.btn-add-entrega {
+  background-color: #333;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-add-entrega:hover {
+  background-color: #555;
+}
+
+/* ===============================
+   CARDS DE ENTREGA
+================================= */
+
+.lista-entregas {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.entrega-card {
+  background-color: white;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  padding: 18px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.entrega-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.entrega-header h4 {
+  margin: 0;
+  color: #333;
+}
+
+.btn-remove-entrega {
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.25s;
+}
+
+.btn-remove-entrega:hover {
+  background-color: #c9302c;
+}
+
+/* ===============================
+   PRODUTOS DENTRO DA ENTREGA
+================================= */
+
+.produtos-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.produto-linha {
+  background-color: #FFF6F6;
+  border: 1px solid #eee;
+  padding: 12px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.produto-linha label {
+  font-weight: 600;
+}
+
+/* Botão adicionar produto */
+.btn-add-produto {
+  background-color: #333;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  width: fit-content;
+  margin-top: 10px;
+}
+
+.btn-add-produto:hover {
+  background-color: #555;
+}
+
+/* Botão remover produto */
+.btn-remove-produto {
+  background-color: #e64a4a;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.btn-remove-produto:hover {
+  background-color: #cc3b3b;
+}
+
+/* ===============================
+   BOTÃO SALVAR
+================================= */
+
+.acoes-final {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.btn-salvar-romaneio {
+  background-color: #333;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s;
+}
+
+.btn-salvar-romaneio:hover:not(:disabled) {
+  background-color: #555;
+}
+
+.btn-salvar-romaneio:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+/* ===============================
+   MOBILE
+================================= */
+
+@media (max-width: 768px) {
+  .produto-linha,
+  .entrega-card {
+    padding: 14px;
+  }
+
+  .form-row input,
+  .form-row textarea,
+  .form-row select {
+    font-size: 0.9rem;
+  }
+
+  .btn-add-produto,
+  .btn-add-entrega {
+    width: 100%;
+  }
+}
