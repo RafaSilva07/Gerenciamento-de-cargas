@@ -1,1 +1,0 @@
-Funçoes que nao entram em hooks, mas sao repetidas entre nossos elementos e hooks

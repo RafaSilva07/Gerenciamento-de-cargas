@@ -1,1 +1,0 @@
-Reunir os contextos(flash context) tudo no mesmo lugar.
