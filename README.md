@@ -27,16 +27,9 @@ O **ExpedFacil** propõe uma solução integrada, com foco em:
 - **Lombok**  
 - **Maven**  
 - **Postman** (para testes de API)
-
----
-
-## 🧱 Estrutura do Sistema
-
-- `controller/` → Endpoints REST  
-- `service/` → Regras de negócio  
-- `infrastructure/entitys/` → Entidades JPA  
-- `repository/` → Integração com banco de dados  
-- `enums/` → Enumerações padronizadas (status, ações, unidades)  
+- **React**
+- **Vite**
+- **TypeScript**
 
 ---
 
@@ -44,7 +37,7 @@ O **ExpedFacil** propõe uma solução integrada, com foco em:
 
 O documento completo com os **requisitos funcionais e não funcionais**, **atores**, **histórias de usuário** e **requisitos de performance** pode ser acessado através do link abaixo:
 
-👉 [Clique aqui para acessar o Documento de Requisitos](https://docs.google.com/document/d/1v0EbgXwQaX2MrJ1mLVpja3hDUi6oYEETRugZS-b8iH8/edit?usp=sharing)
+👉 [Clique aqui para acessar o Documento de Requisitos e outros.](https://drive.google.com/drive/folders/1hyr8M2NgEQI60e5ye_B3ooegNbGepQbi?usp=sharing)
 
 ---
 
@@ -71,7 +64,27 @@ O documento completo com os **requisitos funcionais e não funcionais**, **atore
 ## Após configurar o banco, rode novamente:
  - **mvn clean spring-boot:run**
 
+---
 
+## 📦 Instalação do Front-end
+
+## 1) Acessar a pasta do front-end
+- **cd expedfacil-FrontEnd**
+
+## 2) Instalar dependências
+- **npm install**
+- **npm install react-router-dow**
+- **npm install axios**
+- **npm install lucide-react**
+    
+## 3) Rodar o projeto
+- **npm run dev**
+
+## 4) O Vite iniciará o servidor localmente
+- **npm http://localhost:5176/**
+  
+---
+  
 ## 👤 Autor
 
 **João Victor / Rafael Silva**   
