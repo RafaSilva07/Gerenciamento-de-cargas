@@ -18,7 +18,7 @@ import lombok.*;
 public class Produto {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "codigo", unique = true, nullable = false, length = 9)
@@ -31,14 +31,14 @@ public class Produto {
     @Column(name="descricao", nullable = false)
     private String descricao;
 
-    @Column(name="quantPorPalete", nullable = false)
+    @Column(name="quant_por_palete", nullable = false)
     @Min(1)
     private short quantPorPalete;                       // Quantidade por palete que fica armazenado no estoque
 
-    @Column(name="undiadesPorCxFd", nullable = false)
+    @Column(name="undiades_por_cx_fd", nullable = false)
     private short unidadesPorCxFd;
 
     @Enumerated(EnumType.STRING)
-    @Column(name ="tipoUnidade", nullable = false)
+    @Column(name ="tipo_unidade", nullable = false)
     private TipoUnidadeProduto tipoUnidade;
 }
