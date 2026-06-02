@@ -1,3 +1,4 @@
+-- Cria tabela de produtos base do sistema.
 CREATE TABLE IF NOT EXISTS produto (
     id BIGINT NOT NULL AUTO_INCREMENT,
     codigo VARCHAR(9) NOT NULL,
@@ -9,6 +10,7 @@ CREATE TABLE IF NOT EXISTS produto (
     UNIQUE KEY uk_produto_codigo (codigo)
 );
 
+-- Cria tabela de romaneio (carga/embarque).
 CREATE TABLE IF NOT EXISTS romaneio (
     id BIGINT NOT NULL AUTO_INCREMENT,
     numero_embarque VARCHAR(255) NOT NULL,
@@ -21,6 +23,7 @@ CREATE TABLE IF NOT EXISTS romaneio (
     UNIQUE KEY uk_romaneio_numero_embarque (numero_embarque)
 );
 
+-- Cria tabela de entregas vinculadas ao romaneio.
 CREATE TABLE IF NOT EXISTS entrega (
     id BIGINT NOT NULL AUTO_INCREMENT,
     ordem_carregamento INT NOT NULL,
@@ -36,6 +39,7 @@ CREATE TABLE IF NOT EXISTS entrega (
     CONSTRAINT fk_entrega_romaneio FOREIGN KEY (romaneio_id) REFERENCES romaneio(id)
 );
 
+-- Cria tabela de itens da entrega (produtos da entrega).
 CREATE TABLE IF NOT EXISTS produto_entrega (
     id BIGINT NOT NULL AUTO_INCREMENT,
     codigo_produto VARCHAR(255) NOT NULL,

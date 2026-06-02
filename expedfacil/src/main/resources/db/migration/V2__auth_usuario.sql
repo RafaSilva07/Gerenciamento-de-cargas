@@ -1,3 +1,5 @@
+-- Cria tabela de usuarios para autenticacao e autorizacao.
+-- Inclui matricula unica, role, cargo, senha com hash e status ativo.
 CREATE TABLE IF NOT EXISTS usuario (
     id BIGINT NOT NULL AUTO_INCREMENT,
     matricula INT NOT NULL,

@@ -51,12 +51,14 @@
   align-items: flex-start;
 }
 
-.user-details span:first-child {
+.user-details p:first-child {
   font-weight: 600;
   color: #333;
+  margin: 0;
 }
 
-.user-details span:last-child {
+.user-details p:last-child {
   font-size: 0.85rem;
   color: #666;
+  margin: 0;
 }
