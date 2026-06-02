@@ -1,9 +1,5 @@
 import type { ProdutoFormData } from "../pages/produtos/components/ModalProdutoForm";
-import axios from "axios";
-
-const api = axios.create({
-  baseURL: "http://localhost:8080",
-});
+import api from "./api";
 
 export async function getProdutos(page: number = 0, size: number = 10) {
   try {
@@ -28,13 +24,13 @@ export async function getProdutos(page: number = 0, size: number = 10) {
   }
 }
 
-// Pesquisa produtos por nome ou código
+// Pesquisa produtos por nome ou cÃƒÂ³digo
 export async function pesquisarProdutos(termo: string) {
   try {
     const response = await api.get(`/produto?q=${encodeURIComponent(termo)}`);
     const data = response.data;
 
-    // Se vier no formato padrão do seu backend
+    // Se vier no formato padrÃƒÂ£o do seu backend
     if (data?.resultado?.content && Array.isArray(data.resultado.content)) {
       return data.resultado.content;
     }
@@ -51,7 +47,7 @@ export async function pesquisarProdutos(termo: string) {
   }
 }
 
-// Busca produto pelo código exato
+// Busca produto pelo cÃƒÂ³digo exato
 export async function buscarProdutoPorCodigo(codigo: string) {
   try {
     const response = await api.get(`/produto/${codigo}`);
@@ -59,7 +55,7 @@ export async function buscarProdutoPorCodigo(codigo: string) {
 
     // Caso o backend retorne o produto diretamente
     if (data && data.codigo) {
-      return [data]; // retornamos dentro de um array para manter o padrão da tela
+      return [data]; // retornamos dentro de um array para manter o padrÃƒÂ£o da tela
     }
 
     // Caso o produto venha dentro de um "resultado"
@@ -69,7 +65,7 @@ export async function buscarProdutoPorCodigo(codigo: string) {
 
     return [];
   } catch (error) {
-    console.error("Erro ao buscar produto por código:", error);
+    console.error("Erro ao buscar produto por cÃƒÂ³digo:", error);
     return [];
   }
 }
@@ -85,7 +81,7 @@ export async function salvarProduto(produto: ProdutoFormData) {
   }
 }
 
-// Excluir produto pelo código
+// Excluir produto pelo cÃƒÂ³digo
 export async function deletarProduto(codigo: string) {
   try {
     await api.delete(`/produto/${codigo}`);

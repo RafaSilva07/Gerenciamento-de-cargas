@@ -1,4 +1,5 @@
-﻿SET @has_quant_old := (
+﻿-- Bloco 1: renomeia quantPorPalete para quant_por_palete quando necessario.
+SET @has_quant_old := (
     SELECT COUNT(*)
     FROM information_schema.COLUMNS
     WHERE TABLE_SCHEMA = DATABASE()
@@ -21,6 +22,7 @@ PREPARE stmt_quant FROM @sql_quant;
 EXECUTE stmt_quant;
 DEALLOCATE PREPARE stmt_quant;
 
+-- Bloco 2: renomeia undiadesPorCxFd para undiades_por_cx_fd quando necessario.
 SET @has_unidades_old := (
     SELECT COUNT(*)
     FROM information_schema.COLUMNS
@@ -44,6 +46,7 @@ PREPARE stmt_unidades FROM @sql_unidades;
 EXECUTE stmt_unidades;
 DEALLOCATE PREPARE stmt_unidades;
 
+-- Bloco 3: renomeia tipoUnidade para tipo_unidade quando necessario.
 SET @has_tipo_old := (
     SELECT COUNT(*)
     FROM information_schema.COLUMNS
